@@ -6,7 +6,7 @@
 To compile :  ```g++ main.cpp -lpthread```
 
 To run : 
-1. ```./a.out```
+1. ```**./a.out**```
     - Creates random number of villagers in North and South
 	- Allows a villager to starve for count = 3, atmost
 2. ```./a.out s```
