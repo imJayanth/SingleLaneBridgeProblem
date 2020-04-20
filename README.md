@@ -6,16 +6,16 @@
 To compile :  ```g++ main.cpp -lpthread```
 
 To run : 
-1. ```**./a.out**```
+1. **```./a.out```**
     - Creates random number of villagers in North and South
 	- Allows a villager to starve for count = 3, atmost
-2. ```./a.out s```
+2. **```./a.out s```**
     - Creates random number of villagers in North and South
 	- Allows a villager to starve for count = s (integer), atmost
-3. ```./a.out m n```
+3. **```./a.out m n```**
     - Creates m (integer) & n (integer) number of North & South villagers respectively and randomly
 	- Allows a villager to starve for count = 3, atmost
-4. ```./a.out m n s```
+4. **```./a.out m n s```**
     - Creates m (integer) & n (integer) number of North & South villagers respectively and randomly
 	- Allows a villager to starve for count = s (integer), atmost
 #
