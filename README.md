@@ -18,7 +18,7 @@ To run :
 4. ```./a.out m n s```
     - Creates m (integer) & n (integer) number of North & South villagers respectively and randomly
 	- Allows a villager to starve for count = s (integer), atmost
-
+#
 	In *figure 1.1*, we gave the three arguments m, n & s as 3, 2 & 2 respectively and thus we get the output with 3 villagers going from A to B, 2 villager going from B to A and a villager can starve for a maximum count of 2.
 
 
