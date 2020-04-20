@@ -14,8 +14,8 @@ pthread_mutex_t mutex,atb,bta,mutex1;
 time_t start;
 
 int atbcnt,btacnt;
-int atbcyc,btacyc;
-int onatb,onbta;
+int atbcyc,btacyc; //to check for starvation
+int onatb,onbta; //to check if a villager is on the bridge
 int VILLCNT,STARVCNT;
 
 void display(int id,string str="")
@@ -38,36 +38,41 @@ void* ATB(void* id)
 {
 	display(*(int*)id,"Appeared");
 	display(*(int*)id,"A to B");
-	display(*(int*)id,"Waiting");	
-	pthread_mutex_lock(&atb);
-	display(*(int*)id,"Got Perm");
-	pthread_mutex_lock(&mutex);	
+	display(*(int*)id,"Waiting");     //stage 1	
+	pthread_mutex_lock(&atb);         //lock the bridge 
+	display(*(int*)id,"Got Perm");    //stage 2    
+	pthread_mutex_lock(&mutex);	      //lock mutex    
 	::atbcnt++;
-	::atbcyc++;	
-	if(::atbcnt==1)
-		pthread_mutex_trylock(&bta);
-	if(::atbcyc!=STARVCNT)
-		pthread_mutex_unlock(&atb);
+	::atbcyc++;	                       //increment count of villagers 
+	if(::atbcnt==1)                    // if the 1st villager close the other bridge entry  
+		pthread_mutex_trylock(&bta);      
+	if(::atbcyc!=STARVCNT)              //if count is less than starvation unlock our bridge
+		pthread_mutex_unlock(&atb);     
 	else
-		::atbcyc=0;
-	pthread_mutex_unlock(&mutex);
-	display(*(int*)id,"Crossing");
+		::atbcyc=0;                    //else again count for starvation is zero 
+	pthread_mutex_unlock(&mutex);      //unlock mutex
+	display(*(int*)id,"Crossing");     //stage 2
+	
 	pthread_mutex_lock(&mutex1);
 	::onatb++;
-	while(::onatb>1);
+	while(::onatb>1); //a villager may have to travel behind another villager
 	pthread_mutex_unlock(&mutex1);
-	sleep((rand()%5)+2);
-	display(*(int*)id,"Crossed!");
-	pthread_mutex_lock(&mutex);
+	
+	sleep((rand()%5)+2);              //travelling
+	
+	display(*(int*)id,"Crossed!");      //stage 3
+   	 
+	pthread_mutex_lock(&mutex);       //locking mutex to decrement
 	::atbcnt--;
 	::onatb--;
-	if(::atbcnt==0)
+	if(::atbcnt==0)                   //if villager is the last person 
+	                                    //then open the opposite bridge 
 		pthread_mutex_unlock(&bta);
 	pthread_mutex_unlock(&mutex);
 	sleep(2);
-	if(!pthread_mutex_trylock(&bta))
+	if(!pthread_mutex_trylock(&bta))      //if opposite village bridge is locked
 	{
-		pthread_mutex_unlock(&atb);
+		pthread_mutex_unlock(&atb);       //open both the village bridges
 		pthread_mutex_unlock(&bta);
 	}
 	pthread_exit(NULL);
@@ -92,7 +97,7 @@ void* BTA(void* id)
 	display(*(int*)id,"Crossing");
 	pthread_mutex_lock(&mutex1);
 	::onbta++;
-	while(::onbta>1);
+	while(::onbta>1); //a villager may have to travel behind another villager
 	pthread_mutex_unlock(&mutex1);
 	sleep((rand()%5)+2);
 	display(*(int*)id,"Crossed!");
@@ -114,6 +119,8 @@ void* BTA(void* id)
 int main(int a, char *b[10])
 {
     int m,n,STARVCNT=3;
+    // m- North to South villagers
+    // n- South to North villagers
 	::VILLCNT=(rand()%5)+4;
     if(a==4)
     {
