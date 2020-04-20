@@ -4,7 +4,7 @@
 ## Solution
    We have implemented a C++ program to help us understand a solution to this problem preventing deadlock and starvation.
    
-To compile :  ```g++ main.cpp -lpthread```
+To compile :  **```g++ main.cpp -lpthread```**
 
 To run : 
 1. **```./a.out```**
