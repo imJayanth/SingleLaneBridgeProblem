@@ -23,7 +23,7 @@ To run :
 In *figure 1.1*, we gave the three arguments m, n & s as 3, 2 & 2 respectively and thus we get the output with 3 villagers going from A to B, 2 villager going from B to A and a villager can starve for a maximum count of 2.
 
 
-![Output](https://raw.githubusercontent.com/SummaUse/summa1/master/slbp.png)
+![Output](https://raw.githubusercontent.com/imJayanth/SingleLaneBridgeProblem/master/Images/Output.png)
 
 *figure 1.1*
 
