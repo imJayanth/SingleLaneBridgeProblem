@@ -27,3 +27,6 @@ In *figure 1.1*, we gave the three arguments m, n & s as 3, 2 & 2 respectively a
 
 *figure 1.1*
 
+### Authors
+  - **Jayanth S K -**  [@imJayanth](https://github.com/imJayanth)
+  - **Basheer Ahamed A -**  [@abasheer669](https://github.com/abasheer669)
